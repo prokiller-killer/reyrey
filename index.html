@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hacky Tools</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #00ff7f;
+      cursor: pointer; /* Add pointer cursor to show it's clickable */
+    }
+
+    .logo {
+      width: 150px; /* Increase the logo size */
+      height: auto;
+      margin-bottom: 20px;
+    }
+
+    .button {
+      background-color: #00ff7f;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 16px;
+      margin: 10px 0;
+      cursor: pointer;
+    }
+
+    .button:hover {
+      background-color: #00cc66;
+    }
+
+    input[type="file"], input[type="text"], input[type="number"], .button {
+      margin: 10px 0;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      width: 80%;
+      max-width: 300px;
+    }
+
+    input[type="file"] {
+      background-color: #333;
+      color: #fff;
+    }
+
+    input[type="text"], input[type="number"] {
+      background-color: #222;
+      color: #fff;
+    }
+
+    .section {
+      margin: 20px 0;
+      padding: 20px;
+      background: #111;
+      border-radius: 10px;
+    }
+
+    footer {
+      margin-top: 20px;
+      color: #888;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+<!-- Snow Effect -->
+<script src="https://cdn.rawgit.com/bungfrangki/efeksalju/2a7805c7/efek-salju.js" type="text/javascript"></script>
+
+  <!-- Logo -->
+  <img src="https://c.top4top.io/p_3277o6iyd0.gif" class="logo" alt="Logo">
+
+  <h1 id="title">Hacky Tools</h1>
+
+  <!-- Hit Checker Section -->
+  <div class="section" id="hitCheckerSection">
+    <h2>Hit Checker</h2>
+    <input type="file" id="comboFile" />
+    <input type="text" id="siteDomain" placeholder="Enter Site/Domain (e.g., facebook.com)" />
+    <input type="text" id="resultFileName" placeholder="Enter Result File Name (e.g., hits.txt)" />
+    <button class="button" onclick="processHitChecker()">Process and Download</button>
+  </div>
+
+  <!-- Large File Splitter Section -->
+  <div class="section" id="fileSplitterSection" style="display: none;">
+    <h2>Large File Splitter</h2>
+    <input type="file" id="fileInput" />
+    <input type="number" id="chunkSize" placeholder="Chunk size in MB" />
+    <button class="button" onclick="splitFile()">Split File</button>
+    <div id="output"></div>
+  </div>
+
+  <button class="button" onclick="showSection('hitCheckerSection')">Hit Checker</button>
+  <button class="button" onclick="showSection('fileSplitterSection')">Large File Splitter</button>
+
+  <footer>Created by Mr. Hacky</footer>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" src="https://d.top4top.io/m_3277jsv640.mp3" preload="auto"></audio>
+
+  <script>
+    // Toggle sections
+    function showSection(sectionId) {
+      document.getElementById('hitCheckerSection').style.display = 'none';
+      document.getElementById('fileSplitterSection').style.display = 'none';
+      document.getElementById(sectionId).style.display = 'block';
+    }
+
+    // Play background music when the title is clicked
+    document.getElementById('title').addEventListener('click', () => {
+      const bgMusic = document.getElementById('bgMusic');
+      if (bgMusic.paused) {
+        bgMusic.play();
+      } else {
+        bgMusic.pause();
+        bgMusic.currentTime = 0; // Reset to the beginning
+      }
+    });
+
+    // Hit Checker Functionality
+    function processHitChecker() {
+      const comboFile = document.getElementById('comboFile').files[0];
+      const siteDomain = document.getElementById('siteDomain').value.trim();
+      const resultFileName = document.getElementById('resultFileName').value.trim();
+
+      if (!comboFile || !siteDomain || !resultFileName) {
+        alert('Please upload a combo file, enter a site/domain, and specify a result file name.');
+        return;
+      }
+
+      alert(`Processing hit checker for ${siteDomain}...`);
+      // Example: Mock processing (Add real logic as needed)
+      const blob = new Blob([`Hits for ${siteDomain}`], { type: 'text/plain' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = resultFileName;
+      link.click();
+    }
+
+    // Large File Splitter Functionality
+    function splitFile() {
+      const fileInput = document.getElementById('fileInput').files[0];
+      const chunkSizeMB = parseInt(document.getElementById('chunkSize').value, 10);
+
+      if (!fileInput || isNaN(chunkSizeMB)) {
+        alert('Please upload a file and enter a valid chunk size.');
+        return;
+      }
+
+      const chunkSize = chunkSizeMB * 1024 * 1024;
+      const outputDiv = document.getElementById('output');
+      outputDiv.innerHTML = `Splitting ${fileInput.name} into chunks of ${chunkSizeMB} MB...`;
+
+      // Example: Mock processing
+      setTimeout(() => {
+        outputDiv.innerHTML += '<br>File split complete!';
+      }, 1000);
+    }
+  </script>
+</body>
+</html>
